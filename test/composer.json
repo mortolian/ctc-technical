@@ -1,0 +1,15 @@
+{
+    "name": "gideon/test",
+    "autoload": {
+        "psr-4": {
+            "Gideon\\Test\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gideon",
+            "email": "git@mortolian.com"
+        }
+    ],
+    "require": {}
+}
