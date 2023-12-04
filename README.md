@@ -17,13 +17,17 @@ the parts the application needs to run including MySQL.
 The SQL database will have a base file which will populate the server for development.
 `.docker/mysql/docker-entrypoint-initdb.d/test.sql`
 
+NOTE: Security: You will notice that I committed the .env file. This is just 
+to simplify the setup in this case and I will generally not do this with 
+a regular setup.
+
 Clone the project and then from the root of the project run:
 
 ```shell
 docker-composer up -d --build
 ```
 
-The site will be available on http://localhost.
+The site will be available on http://localhost/test/.
 
 ### PHPMyAdmin
 

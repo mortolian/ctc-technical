@@ -1,15 +1,16 @@
 # Composer Build Stage
 FROM composer:latest as composer
 WORKDIR /app
-COPY ../../composer.json composer.lock ./
-RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader && \
+COPY ../../test/composer.json ./
+COPY ../../test/composer.lock ./
+RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader --ignore-platform-req=ext-mysqli && \
     composer clear-cache
 COPY ../.. .
 RUN composer dump-autoload --no-scripts --no-dev --optimize
 
 # APP Build Stage
 FROM php:8.2-apache
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/
 
 # 1. Install production packages and clean up apt cache.
 RUN apt-get update && apt-get install -y \
@@ -46,7 +47,8 @@ RUN docker-php-ext-install \
     mbstring \
     opcache \
     pdo_mysql \
-    zip
+    zip \
+    mysqli
 
 # 5 - Copy the application code from the composer stage.
 COPY --from=composer / /var/www/html
