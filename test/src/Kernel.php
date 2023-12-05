@@ -14,4 +14,4 @@ $config = include_once BASE_DIR . "config/config.php";
 $database = new Database($config);
 $db = $database->connect();
 
-dd($db->query("SELECT * FROM poll_options")->fetchAll());
+//dd($db->query("SELECT * FROM poll_options")->fetchAll());

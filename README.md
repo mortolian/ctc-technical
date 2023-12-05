@@ -42,17 +42,17 @@ Password: mysql
 ### Functionality Required:
 
 - User Registration Page: You must design a User Registration page with the following fields:
-    - [ ] User first name (required)
-    - [ ] User last name
-    - [ ] Login Username (required)
-    - [ ] Login Password (required)
-    - [ ] Prevent a user from registering more than once.
-    - [ ] Encrypt the user's password.
+    - [X] User first name (required)
+    - [X] User last name
+    - [X] Login Username (required)
+    - [X] Login Password (required)
+    - [X] Prevent a user from registering more than once.
+    - [X] Encrypt the user's password.
     - [ ] Implement a form of spam protection, such as CAPTCHA.
-    - [ ] Passwords must meet the following criteria:
-        - [ ] At least 8 characters long
-        - [ ] At least 1 uppercase letter
-        - [ ] At least 1 special character
+    - [X] Passwords must meet the following criteria:
+        - [x] At least 8 characters long
+        - [X] At least 1 uppercase letter
+        - [X] At least 1 special character
 
 ### Login Page:
 
@@ -77,7 +77,7 @@ Password: mysql
 Technical Requirements:
 
 - [x] Use PHP classes in an Object-Oriented Programming (OOP) coding style.
-- [ ] Utilize jQuery/AJAX for form submission and validation.
+- [x] Utilize jQuery/AJAX for form submission and validation.
 - [x] Host the project locally, with the path to access it being: http://localhost/test/
 - [x] Employ a MySQL database with the following details:
     - Database name: test
@@ -105,3 +105,4 @@ Technical Requirements:
 
 - https://snyk.io/blog/dockerize-php-application/
 - https://jquery.com/download/
+- https://regex101.com/

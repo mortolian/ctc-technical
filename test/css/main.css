@@ -1,0 +1,28 @@
+/* INDEX PAGE */
+
+.index {
+    margin: 10px auto;
+}
+
+.index .row .col {
+    background-color: #ccc;
+    text-align: left;
+    margin-left: 1px;
+    border-radius: 5px;
+    padding: 50px;
+}
+
+.vote .row .col {
+    background-color: #ccc;
+    text-align: left;
+    margin-left: 1px;
+    border-radius: 5px;
+    padding: 50px;
+}
+
+/* HIDE */
+
+.hide {
+    display: none;
+    visibility: hidden;
+}
