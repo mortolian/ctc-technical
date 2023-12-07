@@ -10,7 +10,7 @@ RUN composer dump-autoload --no-scripts --no-dev --optimize
 
 # APP Build Stage
 FROM php:8.2-apache
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/test/
 
 # 1. Install production packages and clean up apt cache.
 RUN apt-get update && apt-get install -y \
