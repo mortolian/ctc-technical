@@ -18,7 +18,7 @@ try {
         return true;
     };
 
-    $password = md5($_POST['password'], PASSWORD_DEFAULT);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     $testDB = new TestModel($db);
     $response = $testDB->createUser(

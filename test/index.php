@@ -5,11 +5,14 @@ include_once "./views/header.php";
 ?>
     <div id="user" class="user container text-center hide">
         <div class="welcome row">
-            <h1>Welcome Back</h1>
+            <h1 id="welcomeMessage">Welcome Back</h1>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" onclick="logout()">Logout</button>
         </div>
     </div>
 
-    <div id="index" class="index container text-center">
+    <div id="index" class="index container text-center hide">
         <div class="row">
             <div class="col">
                 <h3>Login</h3>
@@ -56,16 +59,16 @@ include_once "./views/header.php";
         </div>
     </div>
 
-    <div class="vote container text-center">
+    <div id="vote" class="vote container text-center hide">
         <div class="row">
             <div class="col">
-                <h3>Voter Box</h3>
-                <p>You can vote <a href="/test/vote.php">here</a>.</p>
+                <h3>VOTE</h3>
+                <p>Vote on your favorite polls <a href="/test/vote.php">here</a>.</p>
             </div>
         </div>
     </div>
 
-<script src="js/main.js"></script>
+    <script src="js/main.js"></script>
 
 <?php
 include_once "./views/footer.php";

@@ -1,10 +1,13 @@
 console.info("Loaded Vote Script");
 
+const welcomeBox = document.getElementById('user');
+const loginBox = document.getElementById("index");
+const voteBox = document.getElementById("vote");
+
 /**
  * Login
  */
 const loginForm = document.getElementById('loginForm');
-const loginButton = document.getElementById('loginButton');
 
 loginForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -14,15 +17,20 @@ loginForm.addEventListener('submit', function (event) {
     // Submit the information to the form endpoint.
     $.ajax({
         method: "POST",
-        url: "/test/auth_user.php",
+        url: "/auth_user.php",
         data: {
             username: username,
             password: password
         }
     })
     .done(function (result) {
-        localStorage.setItem("user", result);
-        console.info(result);
+        localStorage.setItem("user", JSON.stringify(result));
+        const username = result.username;
+        const welcomeMessage = document.getElementById("welcomeMessage");
+        welcomeMessage.innerHTML = `Welcome Back ${username}`;
+        loginBox.classList.add('hide');
+        welcomeBox.classList.remove('hide');
+        voteBox.classList.remove('hide');
     })
     .fail(function () {
         alert("Cannot log you in. Confirm your details and try again.");
@@ -37,7 +45,6 @@ function hasAuth() {
 /**
  * Register
  */
-const registerButton = document.getElementById('registerUserButton');
 const registerUserForm = document.getElementById("registerUserForm");
 
 registerUserForm.addEventListener('submit', function (event) {
@@ -51,31 +58,33 @@ registerUserForm.addEventListener('submit', function (event) {
     // Submit the information to the form endpoint.
     $.ajax({
         method: "POST",
-        url: "/test/register_user.php",
+        url: "/register_user.php",
         data: {
             firstname: firstname,
             lastname: lastname,
             username: username,
             password: password
-
         }
     })
-        .done(function (msg) {
-            const registerUserForm = document.getElementById("registerUserForm");
-            registerUserForm.innerHTML = "Your new user was created and you can now log in.";
-        })
-        .fail(function () {
-            alert("Could not complete the request, please try again later.");
-        });
+    .done(function (msg) {
+        const registerUserForm = document.getElementById("registerUserForm");
+        registerUserForm.innerHTML = "Your new user was created and you can now log in.";
+    })
+    .fail(function () {
+        alert("Could not complete the request, please try again later.");
+    });
 });
 
 let isAuthenticated = hasAuth();
-const welcomeBox = document.getElementById('user');
-const loginBox = document.getElementById("index");
-
-console.log('auth:' + isAuthenticated);
 
 if (!isAuthenticated) {
-    welcomeBox.classList.add('hide');
     loginBox.classList.remove('hide');
+} else {
+    const result = localStorage.getItem("user");
+
+    const name = JSON.parse(result).user.name;
+    const welcomeMessage = document.getElementById("welcomeMessage");
+    welcomeMessage.innerHTML = `Welcome Back ${name}`;
+    welcomeBox.classList.remove('hide');
+    voteBox.classList.remove('hide');
 }

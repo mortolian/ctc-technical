@@ -17,7 +17,7 @@ FROM php:8.2-apache as base
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/
 
-# 1. Install production packages and clean up apt cache.
+# 1 - Install production packages and clean up apt cache.
 RUN apt-get update && apt-get install -y \
     libbz2-dev \
     libfreetype6-dev \
@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y \
     zip \
  && rm -rf /var/lib/apt/lists/*
 
-# 2. Apache configs + document root.
+# 2 - Apache configs + document root.
 RUN echo "ServerName app.local" >> /etc/apache2/apache2.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf

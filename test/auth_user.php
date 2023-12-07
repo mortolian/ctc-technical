@@ -15,13 +15,13 @@ try {
         return true;
     };
 
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
     $testDB = new TestModel($db);
     $response = $testDB->authUser(
         $_POST['username'],
         $_POST['password']
     );
+
+    $password = password_verify($_POST['password'], '');
 
     header('Content-Type: application/json; charset=utf-8');
     http_response_code(200);
