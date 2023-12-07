@@ -36,7 +36,6 @@ readonly class TestModel
 
     public function hasAuth(): bool
     {
-        dump($_SESSION['user']);
         if (isset($_SESSION['user'])) {
             return true;
         }

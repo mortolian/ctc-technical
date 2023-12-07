@@ -63,12 +63,12 @@ include_once "./views/header.php";
         <div class="row">
             <div class="col">
                 <h3>VOTE</h3>
-                <p>Vote on your favorite polls <a href="/test/vote.php">here</a>.</p>
+                <p>Vote on your favorite polls <a href="/vote.php">here</a>.</p>
             </div>
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <script src="js/vote.js"></script>
 
 <?php
 include_once "./views/footer.php";

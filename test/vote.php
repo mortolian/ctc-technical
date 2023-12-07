@@ -6,7 +6,7 @@ use Gideon\Test\TestModel;
 $testModel = new TestModel($db);
 $authenticated = $testModel->hasAuth();
 
-dump($authenticated);
+var_dump($authenticated);
 
 include_once "./views/header.php";
 ?>
