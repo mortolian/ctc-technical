@@ -3,7 +3,13 @@ include_once "src/Kernel.php";
 
 include_once "./views/header.php";
 ?>
-    <div class="index container text-center">
+    <div id="user" class="user container text-center hide">
+        <div class="welcome row">
+            <h1>Welcome Back</h1>
+        </div>
+    </div>
+
+    <div id="index" class="index container text-center">
         <div class="row">
             <div class="col">
                 <h3>Login</h3>
@@ -44,7 +50,7 @@ include_once "./views/header.php";
                         <div id="passwordHelp" class="form-text">At least 8 characters, 1 uppercase letter, 1 special character.</div>
                     </div>
                     <div id="registerError" class="error"></div>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" id="registerUserButton" class="btn btn-primary">Register</button>
                 </form>
             </div>
         </div>
@@ -53,11 +59,13 @@ include_once "./views/header.php";
     <div class="vote container text-center">
         <div class="row">
             <div class="col">
-                <h3>VOTE</h3>
-                <p>Question goes here.</p>
+                <h3>Voter Box</h3>
+                <p>You can vote <a href="/test/vote.php">here</a>.</p>
             </div>
         </div>
     </div>
+
+<script src="js/main.js"></script>
 
 <?php
 include_once "./views/footer.php";

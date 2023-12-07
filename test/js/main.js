@@ -1,12 +1,46 @@
 console.info("Loaded Vote Script");
 
 /**
+ * Login
+ */
+const loginForm = document.getElementById('loginForm');
+const loginButton = document.getElementById('loginButton');
+
+loginForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    let username = loginForm.querySelector('input#username').value;
+    let password = loginForm.querySelector('input#password').value;
+
+    // Submit the information to the form endpoint.
+    $.ajax({
+        method: "POST",
+        url: "/test/auth_user.php",
+        data: {
+            username: username,
+            password: password
+        }
+    })
+    .done(function (result) {
+        localStorage.setItem("user", result);
+        console.info(result);
+    })
+    .fail(function () {
+        alert("Cannot log you in. Confirm your details and try again.");
+    });
+});
+
+function hasAuth() {
+    const user = localStorage.getItem("user");
+    return !!user;
+}
+
+/**
  * Register
  */
-const registerButton = document.getElementById('registerUserForm');
+const registerButton = document.getElementById('registerUserButton');
 const registerUserForm = document.getElementById("registerUserForm");
 
-registerButton.addEventListener('submit', function (event) {
+registerUserForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     let firstname = registerUserForm.querySelector('input#firstname').value;
@@ -26,22 +60,22 @@ registerButton.addEventListener('submit', function (event) {
 
         }
     })
-    .done(function (msg) {
-        const registerUserForm = document.getElementById("registerUserForm");
-        registerUserForm.innerHTML = "Your new user was created and you can now log in.";
-    })
-    .fail(function () {
-        alert("Could not complete the request, please try again later.");
-    });
+        .done(function (msg) {
+            const registerUserForm = document.getElementById("registerUserForm");
+            registerUserForm.innerHTML = "Your new user was created and you can now log in.";
+        })
+        .fail(function () {
+            alert("Could not complete the request, please try again later.");
+        });
 });
 
-/**
- * Login
- */
-const loginForm = document.getElementById('loginForm');
-const loginButton = document.getElementById('loginButton');
+let isAuthenticated = hasAuth();
+const welcomeBox = document.getElementById('user');
+const loginBox = document.getElementById("index");
 
-loginButton.addEventListener('submit', function (event) {
-    event.preventDefault();
-    alert("login");
-});
+console.log('auth:' + isAuthenticated);
+
+if (!isAuthenticated) {
+    welcomeBox.classList.add('hide');
+    loginBox.classList.remove('hide');
+}

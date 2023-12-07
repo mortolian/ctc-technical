@@ -10,6 +10,44 @@ readonly class TestModel
     {
     }
 
+    public function authUser(
+        string $username,
+        string $password
+    )
+    {
+        $sql = 'SELECT * FROM user WHERE username = :username LIMIT 1';
+
+        $statement = $this->pdo->prepare($sql);
+
+        $statement->execute([
+            ':username' => $username
+        ]);
+
+        $result = $statement->fetch();
+
+        if ($result) {
+            if (!password_verify($password, $result['password'])) return false;
+        }
+
+        $_SESSION['user'] = $result;
+
+        return $result;
+    }
+
+    public function hasAuth(): bool
+    {
+        dump($_SESSION['user']);
+        if (isset($_SESSION['user'])) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getUserSession(): array
+    {
+        return $_SESSION['user'];
+    }
+
     public function createUser(
         string $firstname,
         string $lastname,
@@ -29,5 +67,22 @@ readonly class TestModel
         ]);
 
         return $this->pdo->lastInsertId();
+    }
+
+    public function getPolls(): array
+    {
+        $response = [];
+
+        $sql = 'SELECT * FROM user WHERE username = :username LIMIT 1';
+
+        $statement = $this->pdo->prepare($sql);
+
+        $statement->execute([
+            ':username' => $username
+        ]);
+
+        $result = $statement->fetch();
+
+        return [];
     }
 }

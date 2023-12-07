@@ -1,7 +1,10 @@
 /* INDEX PAGE */
-
 .index {
     margin: 10px auto;
+}
+
+.user {
+    padding: 30px;
 }
 
 .index .row .col {
@@ -21,7 +24,6 @@
 }
 
 /* HIDE */
-
 .hide {
     display: none;
     visibility: hidden;
