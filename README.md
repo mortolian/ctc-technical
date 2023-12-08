@@ -27,7 +27,7 @@ Clone the project and then from the root of the project run:
 docker-composer up -d --build
 ```
 
-The site will be available on http://localhost/test/.
+The site will be available on http://localhost/.
 
 ### PHPMyAdmin
 
