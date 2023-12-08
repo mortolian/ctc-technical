@@ -16,7 +16,7 @@ polls.forEach(item => {
 
         // Validation
         if (!data.get('poll_option')) {
-            alert('You have not made a selection.');
+            window.location.href='vote.php'
             return;
         }
 

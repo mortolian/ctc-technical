@@ -42,9 +42,22 @@ readonly class TestModel
         return $_SESSION['user'];
     }
 
-    public function canVote(): bool
+    public function canVote(int $pollId): bool
     {
-        return false;
+        $user = $this->getUserSession();
+        $sql = 'SELECT * FROM poll_votes WHERE poll_id = :poll_id AND user_id = :user_id LIMIT 1';
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute([
+            ':poll_id' => $pollId,
+            ':user_id' => $user['id'],
+        ]);
+        $result = $statement->fetchAll();
+
+        if (count($result) == 1) {
+            return false;
+        }
+
+        return true;
     }
 
     public function createUser(

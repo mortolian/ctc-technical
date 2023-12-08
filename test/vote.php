@@ -25,26 +25,34 @@ include_once "./views/header.php";
     <?php
         foreach($polls as $poll) {
             echo "<div class='row'>";
-            echo "<div class='col' id='result-" . $poll['id'] ."'>";
-            echo "<form id='poll-form-" . $poll['id'] ."'>";
+            echo "<div class='col'>";
+
             echo "<h3>" . $poll['name'] . "</h3>";
             echo "<p>" . $poll['question'] . "</p>";
-            echo "<input type='hidden' name='pollid' value='".$poll['id']."'>";
 
-            $options = $testModel->getPollQuestionsById($poll['id']);
+            echo "<form id='poll-form-" . $poll['id'] ."'>";
 
-            echo "<div id='poll-result-display'>";
+            if ($testModel->canVote($poll['id'])) {
 
-            foreach ($options as $option) {
-                echo "<div><input type='radio' name='poll_option' value='" . $option['id'] . "'> " . $option['option'] . "</div>";
+                echo "<input type='hidden' name='pollid' value='" . $poll['id'] . "'>";
+
+                $options = $testModel->getPollQuestionsById($poll['id']);
+
+                echo "<div id='poll-result-display'>";
+
+                foreach ($options as $option) {
+                    echo "<div><input type='radio' name='poll_option' value='" . $option['id'] . "'> " . $option['option'] . "</div>";
+                }
+
+                echo "<br>";
+                echo "<button type='submit' class='btn btn-warning' onSubmit='vote(event)'>Vote</button>";
+                echo "</div>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+            } else {
+                echo "Show result here after refresh.";
             }
-
-            echo "<br>";
-            echo "<button type='submit' onSubmit='vote(event)'>Vote</button>";
-            echo "</form>";
-            echo "</div>";
-            echo "</div>";
-            echo "</div>";
         }
     ?>
 </div>
