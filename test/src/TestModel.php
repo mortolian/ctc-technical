@@ -68,20 +68,31 @@ readonly class TestModel
         return $this->pdo->lastInsertId();
     }
 
-    public function getPolls(): array
+    public function getPolls(int $max = 10): array
     {
         $response = [];
 
-        $sql = 'SELECT * FROM user WHERE username = :username LIMIT 1';
+        $sql = 'SELECT * FROM poll LIMIT :max;';
 
         $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':max', (int)$max, PDO::PARAM_INT);
+        $statement->execute();
 
-        $statement->execute([
-            ':username' => $username
-        ]);
+        $result = $statement->fetchAll();
 
-        $result = $statement->fetch();
+        foreach ($result as $item) {
+            $response[] = [
+                'id' => $item['id'],
+                'name' => $item['poll_name'],
+                'question' => $item['poll_question']
+            ];
+        }
 
+        return $response;
+    }
+
+    public function getPollQuestionsById(int $id): array
+    {
         return [];
     }
 }

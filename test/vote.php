@@ -4,9 +4,14 @@ include_once "src/Kernel.php";
 use Gideon\Test\TestModel;
 
 $testModel = new TestModel($db);
-$authenticated = $testModel->hasAuth();
 
-var_dump($authenticated);
+$authenticated = $testModel->hasAuth();
+if (!$authenticated) {
+    header("Location: /");
+}
+$user = $testModel->getUserSession();
+
+$polls = $testModel->getPolls();
 
 include_once "./views/header.php";
 ?>
@@ -19,8 +24,12 @@ include_once "./views/header.php";
 <div class="vote container text-center">
     <div class="row">
         <div class="col">
-            <h3>Voter Box</h3>
-            <p>You can vote <a href="">here</a>.</p>
+            <?php
+                foreach($polls as $poll) {
+                    echo "<h3>" . $poll['name'] . "</h3>";
+                    echo "<p>" . $poll['question'] . "</p>";
+                }
+            ?>
         </div>
     </div>
 </div>
@@ -30,4 +39,3 @@ include_once "./views/header.php";
 <?php
 include_once "./views/footer.php";
 ?>
-
