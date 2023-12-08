@@ -16,19 +16,14 @@ readonly class TestModel
     )
     {
         $sql = 'SELECT * FROM user WHERE username = :username LIMIT 1';
-
         $statement = $this->pdo->prepare($sql);
-
         $statement->execute([
             ':username' => $username
         ]);
-
         $result = $statement->fetch();
-
         if ($result) {
             if (!password_verify($password, $result['password'])) return false;
         }
-
         $_SESSION['user'] = $result;
 
         return $result;
@@ -47,6 +42,11 @@ readonly class TestModel
         return $_SESSION['user'];
     }
 
+    public function canVote(): bool
+    {
+        return false;
+    }
+
     public function createUser(
         string $firstname,
         string $lastname,
@@ -55,9 +55,7 @@ readonly class TestModel
     ): int
     {
         $sql = 'INSERT INTO user (first_name, last_name, username, password) VALUES (:firstname, :lastname, :username, :password)';
-
         $statement = $this->pdo->prepare($sql);
-
         $statement->execute([
             ':firstname' => $firstname,
             ':lastname' => $lastname,
@@ -93,6 +91,52 @@ readonly class TestModel
 
     public function getPollQuestionsById(int $id): array
     {
-        return [];
+        $response = [];
+
+        $sql = 'SELECT * FROM poll_options WHERE poll_id = :voteID';
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':voteID', (int)$id, PDO::PARAM_INT);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+
+        foreach ($result as $item) {
+            $response[] = [
+                'id' => $item['id'],
+                'option' => $item['option_name'],
+            ];
+        }
+
+        return $response;
+    }
+
+    public function saveVote(
+        string $pollid,
+        string $poll_option,
+    ): int
+    {
+        // increment the vote on the voting table
+        $sqlUpdate = 'UPDATE  poll_options SET votes = votes + 1 WHERE id = :poll_option';
+        $statementUpdate = $this->pdo->prepare($sqlUpdate);
+        $statementUpdate->execute([
+            ':poll_option' => $poll_option,
+        ]);
+
+        // save that the user has voted on this poll
+        $sql = 'INSERT INTO poll_votes (poll_id, user_id) VALUES (:poll_id, :user_id)';
+        $statement = $this->pdo->prepare($sql);
+        $user = $this->getUserSession();
+        $statement->execute([
+            ':poll_id' => $pollid,
+            ':user_id' => $user['id'],
+        ]);
+
+        return $this->pdo->lastInsertId();
+    }
+
+    public function getPollResultsByPollId(int $id): array
+    {
+        $response = [];
+        return $response;
     }
 }

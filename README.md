@@ -56,11 +56,11 @@ Password: mysql
 
 ### Login Page:
 
-- [ ] Create a Login page for users to log in with their credentials.
+- [X] Create a Login page for users to log in with their credentials.
 
-- [ ] Voting Poll Component: After a successful login, prompt the user to answer the following question: "What is your
+- [X] Voting Poll Component: After a successful login, prompt the user to answer the following question: "What is your
   favourite coding language?"
-    - [ ] Provide the following options for selection:
+    - [X] Provide the following options for selection:
         - PHP
         - C#
         - C
