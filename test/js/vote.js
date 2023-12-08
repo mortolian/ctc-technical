@@ -2,13 +2,12 @@ console.log('Vote Script Loaded');
 
 /**
  * Vote
- * @param event
  */
 
 const polls = document.querySelectorAll('[id^=poll-form]');
 
 polls.forEach(item => {
-    item = addEventListener('submit', function(event) {
+    item.addEventListener('submit', function(event) {
         event.preventDefault();
         console.log('Submitted');
 
@@ -35,11 +34,10 @@ polls.forEach(item => {
         })
             .done(function (msg) {
                 const pollForm = document.getElementById("poll-form-" + pollid);
-                pollForm.innerHTML = "The result";
+                window.location.href = '/vote.php';
             })
             .fail(function () {
                 alert("Could not record your vote at this time");
             });
-
     })
 })

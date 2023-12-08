@@ -1,8 +1,7 @@
-console.info("Loaded Vote Script");
-
 const welcomeBox = document.getElementById('user');
 const loginBox = document.getElementById("index");
 const voteBox = document.getElementById("vote");
+const jumbo = document.getElementById("jumbo");
 
 /**
  * Login
@@ -39,7 +38,10 @@ loginForm.addEventListener('submit', function (event) {
 
 function hasAuth() {
     const user = localStorage.getItem("user");
-    return !!user;
+    if(user) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -75,16 +77,18 @@ registerUserForm.addEventListener('submit', function (event) {
     });
 });
 
-let isAuthenticated = hasAuth();
+const isAuthenticated = hasAuth();
 
 if (!isAuthenticated) {
     loginBox.classList.remove('hide');
+    jumbo.classList.remove('hide');
 } else {
     const result = localStorage.getItem("user");
-
     const name = JSON.parse(result).user.name;
     const welcomeMessage = document.getElementById("welcomeMessage");
     welcomeMessage.innerHTML = `Welcome Back ${name}`;
     welcomeBox.classList.remove('hide');
     voteBox.classList.remove('hide');
 }
+
+console.log('main.js loaded');

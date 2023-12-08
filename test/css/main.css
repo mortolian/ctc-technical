@@ -1,4 +1,19 @@
+/* GENERAL */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+body {
+    background-image: url("/images/background.jpg");
+    background-size: 50%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.ffs {
+    font-family: 'Anton', sans-serif;
+}
+
+
 /* INDEX PAGE */
+
 .index {
     margin: 10px auto;
 }
@@ -8,7 +23,7 @@
 }
 
 .index .row .col {
-    background-color: #ccc;
+    background-color: rgba(135, 135, 135, 0.5);
     text-align: left;
     margin-left: 1px;
     border-radius: 5px;
@@ -16,7 +31,7 @@
 }
 
 .vote .row .col {
-    background-color: #ccc;
+    background-color: rgba(135, 135, 135, 0.5);
     text-align: left;
     margin-left: 1px;
     border-radius: 5px;

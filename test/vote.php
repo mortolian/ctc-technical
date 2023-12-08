@@ -16,8 +16,20 @@ $polls = $testModel->getPolls();
 include_once "./views/header.php";
 ?>
 <div id="user" class="user container text-center">
-    <div class="welcome row">
-        <h1>Voter Box</h1>
+    <div class="welcome row text-start">
+        <h1 class="ffs">Voter Box</h1>
+        <hr>
+    </div>
+    <div class="row row-cols-auto">
+        <div class="col">
+            <button class="btn btn-primary" onclick="window.location.href='/'">Home</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary" onclick="window.location.href='vote.php'">Voting</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary" onclick="logout()">Logout</button>
+        </div>
     </div>
 </div>
 
@@ -33,7 +45,6 @@ include_once "./views/header.php";
             echo "<form id='poll-form-" . $poll['id'] ."'>";
 
             if ($testModel->canVote($poll['id'])) {
-
                 echo "<input type='hidden' name='pollid' value='" . $poll['id'] . "'>";
 
                 $options = $testModel->getPollQuestionsById($poll['id']);
@@ -51,7 +62,21 @@ include_once "./views/header.php";
                 echo "</div>";
                 echo "</div>";
             } else {
-                echo "Show result here after refresh.";
+                $results = $testModel->getPollResultsByPollId($poll['id']);
+
+                echo "<div id='poll-result-display'>";
+                foreach ($results as $result) {
+                    echo "<label for='".$result['name']."'>".$result['name']." (Votes: ".$result['votes']."):&nbsp;&nbsp;</label>";
+                    echo "<progress id='".$result['name']."' style='width:100%;' max='100' value='".number_format($result['percentage'], 0)."'>".number_format($result['percentage'], 0)."%</progress>";
+                    echo "<br>";
+                }
+
+                echo "<br>";
+                echo "You already voted";
+                echo "</div>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
             }
         }
     ?>

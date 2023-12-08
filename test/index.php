@@ -4,11 +4,30 @@ include_once "src/Kernel.php";
 include_once "./views/header.php";
 ?>
     <div id="user" class="user container text-center hide">
-        <div class="welcome row">
+        <div class="welcome row text-start">
             <h1 id="welcomeMessage">Welcome Back</h1>
+            <hr>
         </div>
+        <div class="row row-cols-auto">
+            <div class="row row-cols-auto">
+                <div class="col">
+                    <button class="btn btn-primary" onclick="window.location.href='/'">Home</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="window.location.href='vote.php'">Voting</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="jumbo" class="index container text-center hide">
         <div class="row">
-            <button class="btn btn-primary" onclick="logout()">Logout</button>
+            <div class="col">
+                <h1 class="ffs">Welcome to the VOTING App</h1>
+            </div>
         </div>
     </div>
 
@@ -68,7 +87,7 @@ include_once "./views/header.php";
         </div>
     </div>
 
-    <script src="js/vote.js"></script>
+    <script src="js/main.js"></script>
 
 <?php
 include_once "./views/footer.php";

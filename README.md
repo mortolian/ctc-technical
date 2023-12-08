@@ -42,23 +42,23 @@ Password: mysql
 ### Functionality Required:
 
 - User Registration Page: You must design a User Registration page with the following fields:
-    - [X] User first name (required)
-    - [X] User last name
-    - [X] Login Username (required)
-    - [X] Login Password (required)
-    - [X] Prevent a user from registering more than once.
-    - [X] Encrypt the user's password.
+    - [x] User first name (required)
+    - [x] User last name
+    - [x] Login Username (required)
+    - [x] Login Password (required)
+    - [x] Prevent a user from registering more than once.
+    - [x] Encrypt the user's password.
     - [ ] Implement a form of spam protection, such as CAPTCHA.
-    - [X] Passwords must meet the following criteria:
+    - [x] Passwords must meet the following criteria:
         - [x] At least 8 characters long
-        - [X] At least 1 uppercase letter
-        - [X] At least 1 special character
+        - [x] At least 1 uppercase letter
+        - [x] At least 1 special character
 
 ### Login Page:
 
-- [X] Create a Login page for users to log in with their credentials.
+- [x] Create a Login page for users to log in with their credentials.
 
-- [X] Voting Poll Component: After a successful login, prompt the user to answer the following question: "What is your
+- [x] Voting Poll Component: After a successful login, prompt the user to answer the following question: "What is your
   favourite coding language?"
     - [X] Provide the following options for selection:
         - PHP
@@ -70,9 +70,9 @@ Password: mysql
 
     - [X] Implement functionality to prevent a user from voting more than once.
 
-- [ ] Poll Result Averages:
+- [x] Poll Result Averages:
 
-- [ ] After successful vote submission, display the poll result averages based on all votes already submitted.
+- [x] After successful vote submission, display the poll result averages based on all votes already submitted.
 
 Technical Requirements:
 

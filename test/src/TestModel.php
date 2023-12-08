@@ -147,9 +147,25 @@ readonly class TestModel
         return $this->pdo->lastInsertId();
     }
 
-    public function getPollResultsByPollId(int $id): array
+    public function getPollResultsByPollId(int $pollId): array
     {
         $response = [];
+
+        $sql = 'SELECT *, (SELECT SUM(votes) as total_votes from poll_options WHERE poll_id = :pollId) as total_votes, (SELECT (votes * 100) / total_votes) as percentage FROM `poll_options` WHERE poll_id = :pollId;';
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':pollId', (int)$pollId, PDO::PARAM_INT);
+        $statement->execute();
+
+        $results = $statement->fetchAll();
+
+        foreach($results as $item) {
+            $response[] = [
+                'name' => $item['option_name'],
+                'percentage' => $item['percentage'],
+                'votes' => $item['votes']
+            ];
+        }
+
         return $response;
     }
 }
