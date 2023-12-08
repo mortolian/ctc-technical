@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Dec 03, 2023 at 01:40 PM
--- Server version: 8.1.0
--- PHP Version: 8.2.8
+-- Generation Time: Dec 08, 2023 at 06:46 PM
+-- Server version: 8.2.0
+-- PHP Version: 8.2.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,9 +30,9 @@ USE test;
 --
 
 CREATE TABLE `poll` (
-  `id` int NOT NULL,
-  `poll_name` varchar(255) NOT NULL,
-  `poll_question` text NOT NULL
+                        `id` int NOT NULL,
+                        `poll_name` varchar(255) NOT NULL,
+                        `poll_question` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `poll` (
 --
 
 INSERT INTO `poll` (`id`, `poll_name`, `poll_question`) VALUES
-(1, 'Coding Language Question', 'What is your favourite coding language?');
+    (1, 'Coding Language Question', 'What is your favourite coding language?');
 
 -- --------------------------------------------------------
 
@@ -49,10 +49,10 @@ INSERT INTO `poll` (`id`, `poll_name`, `poll_question`) VALUES
 --
 
 CREATE TABLE `poll_options` (
-  `id` int NOT NULL,
-  `poll_id` int NOT NULL,
-  `option_name` varchar(255) NOT NULL,
-  `votes` int DEFAULT NULL
+                                `id` int NOT NULL,
+                                `poll_id` int NOT NULL,
+                                `option_name` varchar(255) NOT NULL,
+                                `votes` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -60,12 +60,12 @@ CREATE TABLE `poll_options` (
 --
 
 INSERT INTO `poll_options` (`id`, `poll_id`, `option_name`, `votes`) VALUES
-(1, 1, 'PHP', NULL),
-(2, 1, 'C#', NULL),
-(3, 1, 'C', NULL),
-(4, 1, 'JAVA', NULL),
-(5, 1, 'Python', NULL),
-(6, 1, 'C++', NULL);
+                                                                         (1, 1, 'PHP', 1),
+                                                                         (2, 1, 'C#', 1),
+                                                                         (3, 1, 'C', 4),
+                                                                         (4, 1, 'JAVA', 0),
+                                                                         (5, 1, 'Python', 0),
+                                                                         (6, 1, 'C++', 0);
 
 -- --------------------------------------------------------
 
@@ -74,10 +74,18 @@ INSERT INTO `poll_options` (`id`, `poll_id`, `option_name`, `votes`) VALUES
 --
 
 CREATE TABLE `poll_votes` (
-  `id` int NOT NULL,
-  `poll_id` int NOT NULL,
-  `user_id` int NOT NULL
+                              `id` int NOT NULL,
+                              `poll_id` int NOT NULL,
+                              `user_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `poll_votes`
+--
+
+INSERT INTO `poll_votes` (`id`, `poll_id`, `user_id`) VALUES
+                                                          (5, 1, 1),
+                                                          (6, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -86,34 +94,38 @@ CREATE TABLE `poll_votes` (
 --
 
 CREATE TABLE `user` (
-  `id` int NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(128) NOT NULL
+                        `id` int NOT NULL,
+                        `first_name` varchar(255) NOT NULL,
+                        `last_name` varchar(255) NOT NULL,
+                        `username` varchar(255) NOT NULL,
+                        `password` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `poll`
 --
 ALTER TABLE `poll`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `poll_options`
 --
 ALTER TABLE `poll_options`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `poll_votes`
+--
+ALTER TABLE `poll_votes`
+    ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -123,19 +135,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `poll`
 --
 ALTER TABLE `poll`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+    MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `poll_options`
 --
 ALTER TABLE `poll_options`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+    MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `poll_votes`
+--
+ALTER TABLE `poll_votes`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+    MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
