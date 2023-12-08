@@ -68,7 +68,7 @@ Password: mysql
         - Python
         - C++
 
-    - [ ] Implement functionality to prevent a user from voting more than once.
+    - [X] Implement functionality to prevent a user from voting more than once.
 
 - [ ] Poll Result Averages:
 
